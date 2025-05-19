@@ -8,7 +8,7 @@ then
     echo "✅ Python 3 is already installed."
 else
     echo "⬇️ Python 3 not found. Installing now..."
-    sudo apt update && sudo apt install -y python3
+    sudo apt update && sudo apt install python3
 fi
 ########################################################################################################################
 # Check if venv is available
@@ -17,7 +17,7 @@ then
     echo "✅ venv module is available."
 else
     echo "⬇️ venv module not found. Installing python3-venv..."
-    sudo apt install -y python3-venv
+    sudo apt install python3-venv
 fi
 ########################################################################################################################
 # --- Check pip ---
@@ -26,7 +26,7 @@ then
     echo "✅ pip3 is already installed."
 else
     echo "⬇️ Installing pip3..."
-    sudo apt install -y python3-pip
+    sudo apt install  python3-pip
 fi
 ########################################################################################################################
 # Check if ngrok is installed

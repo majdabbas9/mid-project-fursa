@@ -3,7 +3,8 @@ from ollama import chat
 from ollama import ChatResponse
 
 def generate_filter(msg):
-    response: ChatResponse = chat(model='gemma3:1b', messages=[
+    # gemma3:1b
+    response: ChatResponse = chat(model='codellama', messages=[
         {'role': 'system', 'content': """
 You are a Python assistant specialized in image processing.
 Do not check if the file exists. Do not use try-except.

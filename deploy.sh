@@ -46,7 +46,8 @@ else
         exit 1
     fi
 fi
-ollama pull gemma3:1b
+#ollama pull gemma3:1b
+ollama pull codellama
 sudo cp DeepPicBot.service /etc/systemd/system/
 
 # reload daemon and restart the service

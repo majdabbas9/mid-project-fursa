@@ -3,7 +3,7 @@ from ollama import chat
 from ollama import ChatResponse
 
 def generate_filter(msg):
-    response: ChatResponse = chat(model='codellama', messages=[
+    response: ChatResponse = chat(model='gemma3:1b', messages=[
         {'role': 'system', 'content': """
 You are a Python assistant specialized in image processing.
 Do not check if the file exists. Do not use try-except.
@@ -55,7 +55,8 @@ def modify_cv2_code(code_str,file_name,ext):
 
         # Fix unassigned operations like Laplacian
         if line.startswith("cv2.") and '=' not in line and last_assigned_var or not line.startswith(f'{last_assigned_var}'):
-             line = f"{last_assigned_var} = {line}"
+            if last_assigned_var:
+                line = f"{last_assigned_var} = {line}"
 
         # Fix imwrite to use correct path and variable
         if 'cv2.imwrite' in line:

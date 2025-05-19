@@ -91,6 +91,7 @@ class Image_processingBot(Bot):
             i = 0
             last_code = None
             codes_error = None
+            sent_image = False
             while i < 10:
                 i += 1
                 try:
@@ -110,11 +111,15 @@ class Image_processingBot(Bot):
                     time.sleep(2)
                     os.remove(file_path)
                     os.remove('Image_processing_bot/images/output.jpg')
+                    sent_image = True
                     break
                 except Exception as e:
                     codes_error = str(e)
                     print(f"Attempt {i}: Error occurred - {e}")
                     continue  # Try again
+            if not sent_image:
+                self.send_text(msg['chat']['id'], "Sorry, I couldn't process the image. Please try again with a different request.")
+                os.remove(file_path)
 
 
 

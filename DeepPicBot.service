@@ -1,0 +1,18 @@
+[Unit]
+Description=DeepPicBot
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/mid-project-fursa
+ExecStart=/bin/bash /home/ubuntu/mid-project-fursa/Image_processing_bot/run.sh /home/ubuntu/mid-project-fursa
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+

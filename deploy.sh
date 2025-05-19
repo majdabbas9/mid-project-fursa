@@ -1,32 +1,7 @@
 #!/bin/bash
 path_to_file=$1
 telegram_token=$2
-# Check if Python 3 is installed
-if command -v python3 &> /dev/null
-then
-    echo "✅ Python 3 is already installed."
-else
-    echo "⬇️ Python 3 not found. Installing now..."
-    sudo apt update && sudo apt install python3
-fi
-########################################################################################################################
-# Check if venv is available
-if python3 -m venv --help &> /dev/null
-then
-    echo "✅ venv module is available."
-else
-    echo "⬇️ venv module not found. Installing python3-venv..."
-    sudo apt install python3-venv
-fi
-########################################################################################################################
-## --- Check pip ---
-#if command -v pip3 &> /dev/null
-#then
-#    echo "✅ pip3 is already installed."
-#else
-#    echo "⬇️ Installing pip3..."
-#    sudo apt install  python3-pip
-#fi
+sudo apt update && sudo apt install -y python3 python3-pip python3-venv
 ########################################################################################################################
 # Check if ngrok is installed
 if command -v ngrok &> /dev/null
@@ -86,7 +61,6 @@ fi
 
 env_file="$path_to_file/Image_processing_bot/.env"
 echo "$path_to_file"
-echo "TELEGRAM_BOT_TOKEN=$telegram_token" > "$env_file"
 if [ ! -f "$env_file" ]; then
     echo ".env file does NOT exist — creating it now."
     echo "TELEGRAM_BOT_TOKEN=$telegram_token" > "$env_file"

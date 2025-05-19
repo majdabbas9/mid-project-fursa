@@ -118,7 +118,7 @@ class Image_processingBot(Bot):
                     print(f"Attempt {i}: Error occurred - {e}")
                     continue  # Try again
             if not sent_image:
-                self.send_text(msg['chat']['id'], "Sorry, I couldn't process the image. Please try again with a different request.")
+                self.send_text(msg['chat']['id'], f"Sorry, I couldn't process the image. Please try again with a different request. and this is the code {code}")
                 os.remove(file_path)
 
 

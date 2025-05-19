@@ -2,6 +2,7 @@
 path_to_file=$1
 telegram_token=$2
 sudo apt update && sudo apt install -y python3 python3-pip python3-venv
+sudo apt-get update && sudo apt-get install -y libgl1
 ########################################################################################################################
 # Check if ngrok is installed
 if command -v ngrok &> /dev/null
@@ -64,7 +65,6 @@ echo "$path_to_file"
 if [ ! -f "$env_file" ]; then
     echo ".env file does NOT exist — creating it now."
     echo "TELEGRAM_BOT_TOKEN=$telegram_token" > "$env_file"
-
     echo ".env file created and token added."
 else
     echo ".env file already exists."

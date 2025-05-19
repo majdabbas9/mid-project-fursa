@@ -18,7 +18,6 @@ else
     | sudo tee /etc/apt/sources.list.d/ngrok.list \
     && sudo apt update \
     && sudo apt install -y ngrok
-    $$ ngrok config add-authtoken 2wKSoZ02WAJ8woqkmFgjtmtqWxH_3h2hacC2fUcvcndDdMBzS
     # Recheck
     if command -v ngrok &> /dev/null
     then
@@ -47,6 +46,7 @@ else
     fi
 fi
 #ollama pull gemma3:1b
+ngrok config add-authtoken 2wKSoZ02WAJ8woqkmFgjtmtqWxH_3h2hacC2fUcvcndDdMBzS
 ollama pull codellama
 sudo cp DeepPicBot.service /etc/systemd/system/
 
@@ -62,16 +62,7 @@ if ! systemctl is-active --quiet DeepPicBot.service; then
 fi
 
 env_file="$path_to_file/Image_processing_bot/.env"
-echo "$path_to_file"
-sleep 2
-if [ ! -f "$env_file" ]; then
-    echo ".env file does NOT exist — creating it now."
-    echo "TELEGRAM_BOT_TOKEN=$telegram_token" > "$env_file"
-    echo ".env file created and token added."
-else
-    echo ".env file already exists."
-fi
-
+echo "TELEGRAM_BOT_TOKEN=$telegram_token" > "$env_file"
 # Check if the virtual environment exists
 if [ ! -d "$path_to_file/.venv" ]; then  # Check if .venv is a directory
     python3 -m venv "$path_to_file/.venv"

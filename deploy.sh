@@ -62,7 +62,6 @@ fi
 
 env_file="$path_to_file/Image_processing_bot/.env"
 echo "$path_to_file"
-sleep 2
 if [ ! -f "$env_file" ]; then
     echo ".env file does NOT exist — creating it now."
     echo "TELEGRAM_BOT_TOKEN=$telegram_token" > "$env_file"

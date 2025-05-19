@@ -3,7 +3,7 @@ from ollama import chat
 from ollama import ChatResponse
 
 def generate_filter(msg):
-    # gemma3:1b
+    # gemma3:1bb
     response: ChatResponse = chat(model='codellama', messages=[
         {'role': 'system', 'content': """
 You are a Python assistant specialized in image processing.

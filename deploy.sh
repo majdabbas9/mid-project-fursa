@@ -1,7 +1,7 @@
 #!/bin/bash
 path_to_file=$1
 telegram_token=$2
-
+echo telegram_token
 # Check if Python 3 is installed
 if command -v python3 &> /dev/null
 then

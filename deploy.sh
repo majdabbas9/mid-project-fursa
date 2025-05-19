@@ -17,7 +17,7 @@ then
     echo "✅ venv module is available."
 else
     echo "⬇️ venv module not found. Installing python3-venv..."
-    sudo apt install -y python3-venv
+    sudo apt install python3.12-venv
 fi
 ########################################################################################################################
 # --- Check pip ---
@@ -26,7 +26,7 @@ then
     echo "✅ pip3 is already installed."
 else
     echo "⬇️ Installing pip3..."
-    sudo apt install -y python3-pip
+    sudo apt install python3-pip
 fi
 ########################################################################################################################
 # Check if ngrok is installed

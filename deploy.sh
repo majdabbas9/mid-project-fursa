@@ -20,14 +20,14 @@ else
     sudo apt install python3-venv
 fi
 ########################################################################################################################
-# --- Check pip ---
-if command -v pip3 &> /dev/null
-then
-    echo "✅ pip3 is already installed."
-else
-    echo "⬇️ Installing pip3..."
-    sudo apt install  python3-pip
-fi
+## --- Check pip ---
+#if command -v pip3 &> /dev/null
+#then
+#    echo "✅ pip3 is already installed."
+#else
+#    echo "⬇️ Installing pip3..."
+#    sudo apt install  python3-pip
+#fi
 ########################################################################################################################
 # Check if ngrok is installed
 if command -v ngrok &> /dev/null
@@ -72,8 +72,6 @@ else
     fi
 fi
 ollama pull gemma3:1b
-
-copy the .servcie file
 sudo cp DeepPicBot.service /etc/systemd/system/
 
 # reload daemon and restart the service

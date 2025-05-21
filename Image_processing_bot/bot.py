@@ -3,7 +3,6 @@ from loguru import logger
 import os
 import time
 from telebot.types import InputFile
-import threading
 from collections import defaultdict
 import re
 import requests

@@ -80,32 +80,42 @@ def send_message_to_ollama(message, filename):
 
 class Image_processingBot(Bot):
     def handle_message(self, msg):
-        if 'caption' not in msg:
-            if msg["text"].lower() in ["hi","hello","hi!","hello!","start","start!"]:
-                self.send_text(msg['chat']['id'], "Hello! I'm DeepPicBot, your image processing assistant. Type 'help' to see what I can do!")
-            if msg["text"].lower() in ["help","help!"]:
-                self.send_text(msg['chat']['id'] , "Just send me an image, and then tell me what you'd like me to do with it! you can apply any image processing operation on it.")
-        else :
+        try:
+            if 'caption' not in msg:
+                user_text = msg.get("text", "").lower()
+                if user_text in ["hi", "hello", "hi!", "hello!", "start", "start!"]:
+                    self.send_text(msg['chat']['id'], "Hello! I'm DeepPicBot, your image processing assistant. Type 'help' to see what I can do!")
+                elif user_text in ["help", "help!"]:
+                    self.send_text(msg['chat']['id'], "Just send me an image, and then tell me what you'd like me to do with it! You can apply any image processing operation on it.")
+                return  # ❗️No caption, no image to process. Return safely.
+
+            # If there's a caption, assume it's an image with instructions
             prompt = msg["caption"]
             file_path = self.download_user_photo(msg)
             last_code = ""
             sent_image = False
+
             try:
                 code = send_message_to_ollama(prompt, file_path)
                 last_code = code
                 print(code)
-                exec(code)
+                exec(code)  # ⚠️ Make sure the generated code is safe!
                 self.send_photo(msg['chat']['id'], 'Image_processing_bot/images/output.jpg')
                 print("Code executed successfully.")
-                time.sleep(2)
-                os.remove(file_path)
-                os.remove('Image_processing_bot/images/output.jpg')
                 sent_image = True
             except Exception as e:
-                print(f"Error occurred - {e}")
-            if not sent_image:
-                self.send_text(msg['chat']['id'], f"Sorry, I couldn't process the image. Please try again with a different request. and this is the code {last_code}")
-                os.remove(file_path)
+                logger.error(f"Code execution failed: {e}")
+                self.send_text(msg['chat']['id'], f"Sorry, I couldn't process the image. Please try again. Here's the generated code:\n\n<code>{last_code}</code>")
+            finally:
+                # Clean up files
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                if os.path.exists('Image_processing_bot/images/output.jpg'):
+                    os.remove('Image_processing_bot/images/output.jpg')
+
+        except Exception as ex:
+            logger.error(f"Unexpected error: {ex}")
+            self.send_text(msg['chat']['id'], "An unexpected error occurred while handling your message.")
 
 
 

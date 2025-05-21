@@ -1,5 +1,6 @@
 #!/bin/bash
 path_to_file=$1
+llama_path=$2
 if [ -z "$path_to_file" ]; then
     echo "You didn't give all the arguments"
     exit 1
@@ -24,6 +25,8 @@ fi
 BOT_APP_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
 echo $BOT_APP_URL
 sed -i '/BOT_APP_URL=/d' "$path_to_file"/Image_processing_bot/.env
+sed -i '/MY_LLAMA_IP=/d' "$path_to_file"/Image_processing_bot/.env
+echo "MY_LLAMA_IP=$llama_path" >> "$path_to_file"/Image_processing_bot/.env
 echo "BOT_APP_URL=$BOT_APP_URL" >> "$path_to_file"/Image_processing_bot/.env
 echo "running.."
 sleep 2

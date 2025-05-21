@@ -89,8 +89,8 @@ class Image_processingBot(Bot):
             prompt = msg["caption"]
             file_path = self.download_user_photo(msg)
             i = 0
-            last_code = None
-            codes_error = None
+            last_code = ""
+            code_error = ""
             sent_image = False
             while i < 10:
                 i += 1
@@ -99,8 +99,9 @@ class Image_processingBot(Bot):
                         code = send_message_to_ollama(prompt, file_path)
                     else:
                         # Prepare context of previous code and error
-                        previous_info = f"\nThe last code was:\n{last_code}\nAnd it failed with this error:\n{codes_error}"
-                        retry_message = prompt + previous_info + "\nPlease try avoiding those mistakes."
+                        previous_info = f"\nThe last code was:\n{last_code}\nAnd it failed with this error:\n{code_error}"
+                        retry_message = prompt + previous_info + "\nPlease try avoiding those mistakes.\n"
+                        print(retry_message)
                         code = send_message_to_ollama(retry_message, prompt)
 
                     last_code = code
@@ -114,11 +115,11 @@ class Image_processingBot(Bot):
                     sent_image = True
                     break
                 except Exception as e:
-                    codes_error = str(e)
+                    code_error = str(e)
                     print(f"Attempt {i}: Error occurred - {e}")
                     continue  # Try again
             if not sent_image:
-                self.send_text(msg['chat']['id'], f"Sorry, I couldn't process the image. Please try again with a different request. and this is the code {code}")
+                self.send_text(msg['chat']['id'], f"Sorry, I couldn't process the image. Please try again with a different request. and this is the code {last_code}")
                 os.remove(file_path)
 
 

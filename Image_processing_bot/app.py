@@ -18,9 +18,14 @@ def index():
 
 @app.route(f'/{TELEGRAM_BOT_TOKEN}/', methods=['POST'])
 def webhook():
-    req = request.get_json()
-    bot.handle_message(req['message'])
-    return 'Ok'
+    try:
+        req = request.get_json(force=True)
+        if 'message' in req:
+            bot.handle_message(req['message'])
+    except Exception as e:
+        # Log the exception for debugging but still return 200 to Telegram
+        print(f"Error in webhook: {e}")
+    return 'OK', 200  # ✅ Always return 200 to Telegram to mark as handled
 
 
 if __name__ == "__main__":

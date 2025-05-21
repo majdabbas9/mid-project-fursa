@@ -91,20 +91,11 @@ class Image_processingBot(Bot):
             file_path = self.download_user_photo(msg)
             i = 0
             last_code = ""
-            code_error = ""
             sent_image = False
             while i < 10:
                 i += 1
                 try:
-                    if i == 1:
-                        code = send_message_to_ollama(prompt, file_path)
-                    else:
-                        # Prepare context of previous code and error
-                        previous_info = f"\nThe last code was:\n{last_code}\nAnd it failed with this error:\n{code_error}"
-                        retry_message = prompt + previous_info + "\nPlease try avoiding those mistakes.\n"
-                        print(retry_message)
-                        code = send_message_to_ollama(retry_message, prompt)
-
+                    code = send_message_to_ollama(prompt, file_path)
                     last_code = code
                     print(code)
                     exec(code)

@@ -89,27 +89,21 @@ class Image_processingBot(Bot):
         else :
             prompt = msg["caption"]
             file_path = self.download_user_photo(msg)
-            i = 0
             last_code = ""
             sent_image = False
-            while i < 10:
-                i += 1
-                try:
-                    code = send_message_to_ollama(prompt, file_path)
-                    last_code = code
-                    print(code)
-                    exec(code)
-                    self.send_photo(msg['chat']['id'], 'Image_processing_bot/images/output.jpg')
-                    print("Code executed successfully.")
-                    time.sleep(2)
-                    os.remove(file_path)
-                    os.remove('Image_processing_bot/images/output.jpg')
-                    sent_image = True
-                    break
-                except Exception as e:
-                    code_error = str(e)
-                    print(f"Attempt {i}: Error occurred - {e}")
-                    continue  # Try again
+            try:
+                code = send_message_to_ollama(prompt, file_path)
+                last_code = code
+                print(code)
+                exec(code)
+                self.send_photo(msg['chat']['id'], 'Image_processing_bot/images/output.jpg')
+                print("Code executed successfully.")
+                time.sleep(2)
+                os.remove(file_path)
+                os.remove('Image_processing_bot/images/output.jpg')
+                sent_image = True
+            except Exception as e:
+                print(f"Error occurred - {e}")
             if not sent_image:
                 self.send_text(msg['chat']['id'], f"Sorry, I couldn't process the image. Please try again with a different request. and this is the code {last_code}")
                 os.remove(file_path)

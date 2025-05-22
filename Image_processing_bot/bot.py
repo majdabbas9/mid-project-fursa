@@ -105,7 +105,7 @@ class Image_processingBot(Bot):
                 sent_image = True
             except Exception as e:
                 logger.error(f"Code execution failed: {e}")
-                self.send_text(msg['chat']['id'], f"Sorry, I couldn't process the image. Please try again. Here's the generated code:\n\n<code>{last_code}</code>")
+                self.send_text(msg['chat']['id'], f"Sorry, I couldn't process the image. Please try again. Here's the generated code:\n\n{last_code}")
             finally:
                 # Clean up files
                 if os.path.exists(file_path):

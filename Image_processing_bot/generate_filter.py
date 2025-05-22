@@ -93,12 +93,9 @@ def generate_code(msg,file_name,ext):
     return filtered_response
 
 if __name__ == "__main__":
-    # Example usage
-    code = """
+    import cv2
     image = cv2.imread('Image_processing_bot/images/img.jpg')
-image = # Apply Laplacian filter
-image = cv2.Laplacian(image, cv2.CV_64F)
-image = # Write the result to disk
-cv2.imwrite('Image_processing_bot/images/output.jpg', image)
-    """
-    print(modify_cv2_code(code,'img','jpg'))
+    image = cv2.Canny(image, 100, 200)
+    cv2.imwrite('Image_processing_bot/images/output.jpg', image)
+
+

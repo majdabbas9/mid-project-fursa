@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=ubuntu
 WorkingDirectory=/home/ubuntu/mid-project-fursa
-ExecStart=/bin/bash /home/ubuntu/mid-project-fursa/Image_processing_bot/run.sh /home/ubuntu/mid-project-fursa http://10.0.27.141
+ExecStart=/bin/bash /home/ubuntu/mid-project-fursa/Image_processing_bot/run.sh /home/ubuntu/mid-project-fursa http://10.0.1.182
 Restart=always
 RestartSec=5
 Environment=PYTHONUNBUFFERED=1

@@ -22,10 +22,12 @@ def webhook():
         req = request.get_json(force=True)
         if 'message' in req:
             bot.handle_message(req['message'])
+        return 'OK', 200  # ✅ Always return 200 to Telegram to mark as handled
     except Exception as e:
         # Log the exception for debugging but still return 200 to Telegram
         print(f"Error in webhook: {e}")
-    return 'OK', 200  # ✅ Always return 200 to Telegram to mark as handled
+        return 'OK', 200  # ✅ Always return 200 to Telegram to mark as handled
+
 
 
 if __name__ == "__main__":

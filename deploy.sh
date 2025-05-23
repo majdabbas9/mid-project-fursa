@@ -2,6 +2,8 @@
 path_to_file=$1
 telegram_token=$2
 ########################################################################################################################
+sudo apt update && sudo apt install -y python3 python3-venv python3-pip
+sudo apt update && sudo apt install -y libgl1
 # Check if ngrok is installed
 if command -v ngrok &> /dev/null
 then

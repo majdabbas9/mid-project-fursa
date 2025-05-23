@@ -3,6 +3,7 @@ from loguru import logger
 import os
 import time
 from telebot.types import InputFile
+from Image_processing_bot.chat_DeepPicBot import  chat_DeepPicBot
 from collections import defaultdict
 import re
 import requests
@@ -83,10 +84,14 @@ class Image_processingBot(Bot):
         try:
             if 'caption' not in msg:
                 user_text = msg.get("text", "").lower()
-                if user_text in ["hi", "hello", "hi!", "hello!", "start", "start!"]:
-                    self.send_text(msg['chat']['id'], "Hello! I'm DeepPicBot, your image processing assistant. Type 'help' to see what I can do!")
-                elif user_text in ["help", "help!"]:
+                if user_text in ["help", "help!"]:
                     self.send_text(msg['chat']['id'], "Just send me an image, and then tell me what you'd like me to do with it! You can apply any image processing operation on it.")
+                # elif user_text in ["hi", "hello", "hi!", "hello!", "start", "start!"]:
+                #     self.send_text(msg['chat']['id'],"Hello! I'm DeepPicBot, your image processing assistant. Type 'help' to see what I can do!")
+                else:
+                    self.send_text(msg['chat']['id'], chat_DeepPicBot(user_text))
+
+
                 return  # ❗️No caption, no image to process. Return safely.
 
             # If there's a caption, assume it's an image with instructions

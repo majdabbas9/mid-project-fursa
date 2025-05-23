@@ -26,7 +26,11 @@ def generate_filter(msg):
     """},
             {"role": "user", "content": msg}
         ],
-        "stream": False
+        "stream": False,
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "repeat_penalty": 1.1,
+        "max_tokens": 80
     }
     url = f"{MY_LLAMA_IP}:11434/api/chat"
     response = requests.post(url, json=payload)

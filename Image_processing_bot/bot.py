@@ -90,8 +90,6 @@ class Image_processingBot(Bot):
                 #      self.send_text(msg['chat']['id'],"Hello! I'm DeepPicBot, your image processing assistant. Type 'help' to see what I can do!")
                 else:
                    self.send_text(msg['chat']['id'], chat_DeepPicBot(user_text))
-
-
                 return  # ❗️No caption, no image to process. Return safely.
 
             # If there's a caption, assume it's an image with instructions

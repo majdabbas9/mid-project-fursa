@@ -108,7 +108,7 @@ class Image_processingBot(Bot):
                 sent_image = True
             except Exception as e:
                 logger.error(f"Code execution failed: {e}")
-                self.send_text(msg['chat']['id'], f"waiting...")
+                self.send_text(msg['chat']['id'], f"somthing went Wrong!")
             finally:
                 # Clean up files
                 if os.path.exists(file_path):
